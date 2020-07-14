@@ -17,6 +17,12 @@
 
         $ ./gradlew :consumer:run
 
+### Run the test suite
+
+1. run unit tests and pact tests for consumer app
+
+        $ ./gradlew :consumer:check
+
 ## Description
 
 This workshop is setup with a number of steps that can be run through. Each step is in a branch, so to run through a
