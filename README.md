@@ -1,5 +1,24 @@
 # Example JVM project for the Pact workshop
 
+## Prerequisites
+* Java 8
+
+## Usage
+
+1. Clone the repo
+1. Start any of the provider apps:
+    - start the dropwizard-provider:
+
+          $ ./gradlew :providers:dropwizard-provider:run
+
+    - start the springboot-provider
+
+1. Run the consumer in another terminal session:
+
+        $ ./gradlew :consumer:run
+
+## Description
+
 This workshop is setup with a number of steps that can be run through. Each step is in a branch, so to run through a
 step of the workshop just check out the branch for that step (i.e. `git checkout step1`).
 
@@ -533,7 +552,7 @@ BUILD FAILED in 12s
 The JUnit build report has the expected failures.
 
 ```
-java.lang.AssertionError: 
+java.lang.AssertionError:
 Failures:
 
 1) a request for json data
@@ -659,7 +678,7 @@ Running the verification against the providers now pass. Yay!
 
 ## Step 8 - Test for the missing query parameter
 
-In this step we are going to add a test for the case where the query parameter is missing or invalid. We do this by 
+In this step we are going to add a test for the case where the query parameter is missing or invalid. We do this by
 adding additional tests and expectations to the consumer pact test. Our client code needs to be modified slightly to
 be able to pass invalid dates in, and if the date parameter is null, don't include it in the request.
 
@@ -815,7 +834,7 @@ After running our specs, the pact file will have 2 new interactions.
 ```
 
 ## Step 9 - Verify the provider with the missing/invalid date query parameter
-   
+
 Let us run this updated pact file with our providers (first run the `publishWorkshopPact` task). We get a 500 response as the provider can't handle the missing
 or incorrect date.
 
@@ -978,16 +997,16 @@ consumer test for this.
               .status(404)
               .toPact();
     }
-  
+
     @Test
     @PactVerification(value = "Our Provider", fragment = "pactForWhenThereIsNoData")
     public void whenThereIsNoData() throws UnirestException {
       // Set up our HTTP client class
       Client client = new Client(provider.getUrl());
-  
+
       // Invoke out client
       List<Object> result = client.fetchAndProcessData(dateTime.toString());
-  
+
       assertThat(result, hasSize(2));
       assertThat(result.get(0), is(0));
       assertThat(result.get(1), nullValue());
@@ -1231,7 +1250,7 @@ pact {
 
 ```
 
-Now, we can run `./gradlew consumer:pactPublish` after running the consumer tests to have the generated pact file 
+Now, we can run `./gradlew consumer:pactPublish` after running the consumer tests to have the generated pact file
 published to the broker. Afterwards, you can navigate to the Pact Broker URL and see the published pact against
 the consumer and provider names setup in our consumer test.
 
@@ -1280,7 +1299,7 @@ public class PactVerificationTest {
 
 ### Springboot provider
 
-The springboot provider is using the Gradle plugin, so we can just configure its build to fetch the pacts from the 
+The springboot provider is using the Gradle plugin, so we can just configure its build to fetch the pacts from the
 broker.
 
 Updated build file:
