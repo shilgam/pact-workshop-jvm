@@ -22,6 +22,19 @@
 1. run unit tests and pact tests for consumer app
 
         $ ./gradlew :consumer:check
+    It also creates a pact file which we can use to validate our assumptions on the provider side.
+
+### Validate a pact file against a provider
+
+1. Publish the pact file from the consumer to provider projects
+
+        $ ./gradlew publishWorkshopPact
+    The Pact file from the consumer project will now exist in the build directory of the two provider projects.
+
+1. Verify the springboot provider
+
+        $ ./gradlew :providers:springboot-provider:pactVerify
+
 
 ## Description
 
