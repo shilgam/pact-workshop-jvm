@@ -6,6 +6,7 @@ import au.com.dius.pact.provider.junitsupport.Provider;
 import au.com.dius.pact.provider.junitsupport.State;
 import au.com.dius.pact.provider.junitsupport.loader.PactBroker;
 import au.com.dius.pact.provider.junitsupport.loader.PactBrokerAuth;
+import au.com.dius.pact.provider.junitsupport.loader.PactFolder;
 import au.com.dius.pact.provider.junitsupport.target.Target;
 import au.com.dius.pact.provider.junitsupport.target.TestTarget;
 import io.dropwizard.testing.ResourceHelpers;
@@ -15,8 +16,9 @@ import org.junit.runner.RunWith;
 
 @RunWith(PactRunner.class)
 @Provider("Our Provider")
-@PactBroker(host = "test.pact.dius.com.au", scheme = "https", port = "443",
-  authentication = @PactBrokerAuth(username = "${pactBrokerUser}", password = "${pactBrokerPassword}"))
+@PactFolder("build/pacts")
+// @PactBroker(host = "test.pact.dius.com.au", scheme = "https", port = "443",
+//  authentication = @PactBrokerAuth(username = "${pactBrokerUser}", password = "${pactBrokerPassword}"))
 public class PactVerificationTest {
   @ClassRule
   public static final DropwizardAppRule<ServiceConfig> RULE = new DropwizardAppRule<ServiceConfig>(MainApplication.class,
@@ -30,8 +32,8 @@ public class PactVerificationTest {
     DataStore.INSTANCE.setDataCount(1000);
   }
 
-  @State("data count == 0")
-  public void dataCountZero() {
-    DataStore.INSTANCE.setDataCount(0);
-  }
+  // @State("data count == 0")
+  // public void dataCountZero() {
+  //   DataStore.INSTANCE.setDataCount(0);
+  // }
 }

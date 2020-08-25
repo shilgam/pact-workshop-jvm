@@ -35,6 +35,10 @@
 
         $ ./gradlew :providers:springboot-provider:pactVerify
 
+1. Verify the Dropwizard provider using a JUnit test
+
+        $ ./gradlew :providers:dropwizard-provider:test
+
 
 ## Description
 
