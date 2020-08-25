@@ -46,7 +46,7 @@ public class ClientPactTest {
           new PactDslJsonBody()
               .stringValue("test", "NO")
               .datetime("validDate", "yyyy-MM-dd'T'HH:mm:ssXX", dateResult.toInstant())
-              .numberValue("count", 100)
+              .integerType("count", 100)
       )
       .toPact();
   }
