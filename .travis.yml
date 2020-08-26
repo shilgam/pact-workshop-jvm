@@ -10,4 +10,4 @@ script:
 
   - ./gradlew publishWorkshopPact # publish the pact file from the consumer to provider projects
 
-  - ./gradlew build --scan -s # verify the Dropwizard provider using a JUnit test
+  - ./gradlew :providers:dropwizard-provider:test # verify the Dropwizard provider using a JUnit test
