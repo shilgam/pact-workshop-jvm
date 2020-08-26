@@ -6,8 +6,7 @@ dist: trusty
 jdk: oraclejdk8
 
 script:
-  - ./gradlew :consumer:check # run unit tests and pact tests for consumer app and generate a pact file
-
-  - ./gradlew publishWorkshopPact # publish the pact file from the consumer to provider projects
-
-  - ./gradlew :providers:dropwizard-provider:test # verify the Dropwizard provider using a JUnit test
+  - |
+    ./gradlew :consumer:check
+    ./gradlew publishWorkshopPact
+    ./gradlew :providers:dropwizard-provider:test
