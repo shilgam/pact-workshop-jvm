@@ -7,6 +7,8 @@ jdk: oraclejdk8
 
 script:
   - |
+    ls -la
+    pwd
     ./gradlew :consumer:check
     ./gradlew publishWorkshopPact
     ./gradlew :providers:dropwizard-provider:test
