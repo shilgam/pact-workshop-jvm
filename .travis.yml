@@ -9,10 +9,13 @@ script:
   - |
     pwd
 
+    mkdir -p providers/springboot-provider/build/pacts
+
     echo ">>> run unit tests and pact tests for consumer app and generate a pact file:"
     ./gradlew :consumer:check
+
     echo ">>> publish the pact file from the consumer to provider projects:"
-    mkdir -p providers/springboot-provider/build/pacts
     ./gradlew publishWorkshopPact
+
     echo ">>> verify the Dropwizard provider using a JUnit test:"
     ./gradlew :providers:dropwizard-provider:test
