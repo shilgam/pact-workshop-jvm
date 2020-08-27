@@ -64,4 +64,69 @@ public class ClientPactTest {
     assertThat(result.get(0), is(1));
     assertThat(result.get(1), is(dateResult));
   }
+
+
+  @Pact(provider = "Our Provider", consumer = "Our Little Consumer")
+  public RequestResponsePact pactForMissingDateParameter(PactDslWithProvider builder) {
+    dateTime = LocalDateTime.now();
+    dateResult = OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+    return builder
+            .given("data count > 0")
+            .uponReceiving("a request with a missing date parameter")
+            .path("/provider.json")
+            .method("GET")
+            .willRespondWith()
+            .status(400)
+            .body(
+                new PactDslJsonBody().stringValue("error", "validDate is required")
+            )
+            .toPact();
+  }
+
+  @Test
+  @PactVerification(value = "Our Provider", fragment = "pactForMissingDateParameter")
+  public void handlesAMissingDateParameter() throws UnirestException {
+    // Set up our HTTP client class
+    Client client = new Client(provider.getUrl());
+
+    // Invoke out client
+    List<Object> result = client.fetchAndProcessData(null);
+
+    assertThat(result, hasSize(2));
+    assertThat(result.get(0), is(0));
+    assertThat(result.get(1), nullValue());
+  }
+
+
+  @Pact(provider = "Our Provider", consumer = "Our Little Consumer")
+  public RequestResponsePact pactForInvalidDateParameter(PactDslWithProvider builder) {
+    dateTime = LocalDateTime.now();
+    dateResult = OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+    return builder
+            .given("data count > 0")
+            .uponReceiving("a request with an invalid date parameter")
+            .path("/provider.json")
+            .method("GET")
+            .query("validDate=This is not a date")
+            .willRespondWith()
+            .status(400)
+            .body(
+                 new PactDslJsonBody().stringValue("error", "'This is not a date' is not a date")
+            )
+            .toPact();
+  }
+
+  @Test
+  @PactVerification(value = "Our Provider", fragment = "pactForInvalidDateParameter")
+  public void handlesAInvalidDateParameter() throws UnirestException {
+    // Set up our HTTP client class
+    Client client = new Client(provider.getUrl());
+
+    // Invoke out client
+    List<Object> result = client.fetchAndProcessData("This is not a date");
+
+    assertThat(result, hasSize(2));
+    assertThat(result.get(0), is(0));
+    assertThat(result.get(1), nullValue());
+  }
 }
