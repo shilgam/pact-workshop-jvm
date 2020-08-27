@@ -7,7 +7,7 @@ jdk: oraclejdk8
 
 jobs:
   include:
-    - stage: "Verify contract on Provider"
+    - stage: "Verify contract on Dropwizard Provider"
       script: |
         pwd
 
@@ -21,3 +21,18 @@ jobs:
 
         echo ">>> verify the Dropwizard provider using a JUnit test:"
         ./gradlew :providers:dropwizard-provider:test
+
+    - stage: "Verify contract on springboot Provider"
+      script: |
+        pwd
+
+        mkdir -p providers/springboot-provider/build/pacts
+
+        echo ">>> run unit tests and pact tests for consumer app and generate a pact file:"
+        ./gradlew :consumer:check
+
+        echo ">>> publish the pact file from the consumer to provider projects:"
+        ./gradlew publishWorkshopPact
+
+        echo ">>> verify the springboot provider"
+        ./gradlew :providers:springboot-provider:pactVerify
