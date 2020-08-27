@@ -1,5 +1,7 @@
 # Example JVM project for the Pact workshop
 
+[![Build Status](https://travis-ci.com/shilgam/pact-workshop-jvm.svg?branch=master)](https://travis-ci.com/shilgam/pact-workshop-jvm)
+
 ## Prerequisites
 * Java 8
 
