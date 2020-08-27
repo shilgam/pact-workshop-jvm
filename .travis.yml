@@ -5,17 +5,19 @@ os: linux
 dist: trusty
 jdk: oraclejdk8
 
-script:
-  - |
-    pwd
+jobs:
+  include:
+    - stage: "Verify contract on Provider"
+      script: |
+        pwd
 
-    mkdir -p providers/springboot-provider/build/pacts
+        mkdir -p providers/springboot-provider/build/pacts
 
-    echo ">>> run unit tests and pact tests for consumer app and generate a pact file:"
-    ./gradlew :consumer:check
+        echo ">>> run unit tests and pact tests for consumer app and generate a pact file:"
+        ./gradlew :consumer:check
 
-    echo ">>> publish the pact file from the consumer to provider projects:"
-    ./gradlew publishWorkshopPact
+        echo ">>> publish the pact file from the consumer to provider projects:"
+        ./gradlew publishWorkshopPact
 
-    echo ">>> verify the Dropwizard provider using a JUnit test:"
-    ./gradlew :providers:dropwizard-provider:test
+        echo ">>> verify the Dropwizard provider using a JUnit test:"
+        ./gradlew :providers:dropwizard-provider:test
