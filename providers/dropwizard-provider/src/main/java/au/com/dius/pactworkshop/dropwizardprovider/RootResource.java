@@ -5,11 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -19,24 +15,12 @@ import java.util.Optional;
 public class RootResource {
 
   @GET
-  public Map<String, Serializable> providerJson(@QueryParam("validDate") Optional<String> validDate) {
-    if (validDate.isPresent()) {
-      if (DataStore.INSTANCE.getDataCount() > 0) {
-        try {
-          LocalDateTime validTime = LocalDateTime.parse(validDate.get());
-          Map<String, Serializable> result = new HashMap<>(3);
-          result.put("test", "NO");
-          result.put("validDate", OffsetDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXX")));
-          result.put("count", DataStore.INSTANCE.getDataCount());
-          return result;
-        } catch (DateTimeParseException e) {
-          throw new InvalidQueryParameterException("'" + validDate.get() + "' is not a date", e);
-        }
-      } else {
-        throw new NoDataException();
-      }
-    } else {
-      throw new QueryParameterRequiredException("validDate is required");
-    }
+  public Map<String, Object> providerJson(@QueryParam("validDate") Optional<String> validDate) {
+    LocalDateTime valid_time = LocalDateTime.parse(validDate.get());
+    Map<String, Object> result = new HashMap<>();
+    result.put("test", "NO");
+    result.put("validDate", LocalDateTime.now().toString());
+    result.put("count", 1000);
+    return result;
   }
 }
