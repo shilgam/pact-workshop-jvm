@@ -129,4 +129,33 @@ public class ClientPactTest {
     assertThat(result.get(0), is(0));
     assertThat(result.get(1), nullValue());
   }
+
+
+  @Pact(provider = "Our Provider", consumer = "Our Little Consumer")
+  public RequestResponsePact pactForWhenThereIsNoData(PactDslWithProvider builder) {
+    dateTime = LocalDateTime.now();
+    return builder
+            .given("data count == 0")
+            .uponReceiving("a request for json data")
+            .path("/provider.json")
+            .method("GET")
+            .query("validDate=" + dateTime.toString())
+            .willRespondWith()
+            .status(404)
+            .toPact();
+  }
+
+  @Test
+  @PactVerification(value = "Our Provider", fragment = "pactForWhenThereIsNoData")
+  public void whenThereIsNoData() throws UnirestException {
+    // Set up our HTTP client class
+    Client client = new Client(provider.getUrl());
+
+    // Invoke out client
+    List<Object> result = client.fetchAndProcessData(dateTime.toString());
+
+    assertThat(result, hasSize(2));
+    assertThat(result.get(0), is(0));
+    assertThat(result.get(1), nullValue());
+  }
 }

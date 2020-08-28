@@ -21,7 +21,7 @@ jobs:
         ./gradlew publishWorkshopPact
 
         echo ">>> verify the Dropwizard provider using a JUnit test:"
-        ./gradlew :providers:dropwizard-provider:test
+        ./gradlew :providers:dropwizard-provider:test --info
 
     - name: "Springboot Provider"
       script: |
