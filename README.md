@@ -41,6 +41,15 @@
 
         $ ./gradlew :providers:dropwizard-provider:test
 
+### Use Pact Broker to publish and validate contract files
+
+1. run tests for consumer app and generate pact file(s):
+
+        $ ./gradlew :consumer:check
+
+1. Publish pact file(s) to Broker
+
+        $ PACT_BROKER_TOKEN=<YOUR TOKEN> ./gradlew consumer:pactPublish
 
 ## Description
 

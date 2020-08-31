@@ -1,6 +1,6 @@
-//plugins {
-//  id "au.com.dius.pact" version "4.1.2"
-//}
+plugins {
+  id "au.com.dius.pact" version "4.1.2"
+}
 
 apply plugin: 'application'
 
@@ -17,10 +17,9 @@ dependencies {
   testCompile 'au.com.dius.pact.consumer:junit:4.1.2'
 }
 
-//pact {
-//  publish {
-//    pactBrokerUrl = 'https://test.pact.dius.com.au'
-//    pactBrokerUsername = project.pactBrokerUser
-//    pactBrokerPassword = project.pactBrokerPassword
-//  }
-//}
+pact {
+  publish {
+    pactBrokerUrl = project.pactBrokerUrl
+    pactBrokerToken = (project.pactBrokerToken == '<YOUR TOKEN>') ? System.getenv('PACT_BROKER_TOKEN') : project.pactBrokerToken
+  }
+}
