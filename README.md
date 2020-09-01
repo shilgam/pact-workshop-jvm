@@ -55,6 +55,10 @@
 
         $ PACT_BROKER_TOKEN=<YOUR TOKEN> ./gradlew :providers:dropwizard-provider:test
 
+1. Verify the Springboot provider
+
+        $ PACT_BROKER_TOKEN=<YOUR TOKEN> ./gradlew :providers:springboot-provider:pactVerify
+
 ## Description
 
 This workshop is setup with a number of steps that can be run through. Each step is in a branch, so to run through a
