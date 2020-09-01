@@ -8,42 +8,29 @@
 ## Usage
 
 1. Clone the repo
-1. Start any of the provider apps:
-    - start the dropwizard-provider:
+1. Start any of the provider apps
+    - start the dropwizard-provider
 
-          $ ./gradlew :providers:dropwizard-provider:run
+          $ PACT_BROKER_TOKEN=<YOUR TOKEN> ./gradlew :providers:dropwizard-provider:run
 
-    - start the springboot-provider
+    - or start the springboot-provider
 
-1. Run the consumer in another terminal session:
+          $ PACT_BROKER_TOKEN=<YOUR TOKEN> ./gradlew :providers:springboot-provider:bootRun
 
-        $ ./gradlew :consumer:run
+1. Run the consumer in another terminal session
+
+        $ PACT_BROKER_TOKEN=<YOUR TOKEN> ./gradlew :consumer:run
 
 ### Run the test suite
 
-1. run unit tests and pact tests for consumer app
+1. Run unit tests and pact tests for consumer app
 
         $ ./gradlew :consumer:check
     It also creates a pact file which we can use to validate our assumptions on the provider side.
 
-### Validate a pact file against a provider
-
-1. Publish the pact file from the consumer to provider projects
-
-        $ ./gradlew publishWorkshopPact
-    The Pact file from the consumer project will now exist in the build directory of the two provider projects.
-
-1. Verify the springboot provider
-
-        $ ./gradlew :providers:springboot-provider:pactVerify
-
-1. Verify the Dropwizard provider using a JUnit test
-
-        $ ./gradlew :providers:dropwizard-provider:test
-
 ### Use Pact Broker to publish and validate contract files
 
-1. run tests for consumer app and generate pact file(s):
+1. Run tests for consumer app and generate pact file(s)
 
         $ ./gradlew :consumer:check
 
