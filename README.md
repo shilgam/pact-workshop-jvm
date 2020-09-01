@@ -55,7 +55,7 @@
 
         $ PACT_BROKER_TOKEN=<YOUR TOKEN> ./gradlew :providers:dropwizard-provider:test
 
-1. Verify the Springboot provider
+1. Verify the Springboot provider and publish results back to Pact Broker
 
         $ PACT_BROKER_TOKEN=<YOUR TOKEN> ./gradlew :providers:springboot-provider:pactVerify
 
