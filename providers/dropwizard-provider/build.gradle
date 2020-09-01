@@ -26,7 +26,8 @@ run {
   }
 }
 
-//test {
-//  systemProperty 'pactBrokerUser', pactBrokerUser
-//  systemProperty 'pactBrokerPassword', pactBrokerPassword
-//}
+test {
+  systemProperty 'pactBrokerHost', pactBrokerHost
+  def pactBrokerToken = (project.pactBrokerToken == '<YOUR TOKEN>') ? System.getenv('PACT_BROKER_TOKEN') : project.pactBrokerToken
+  systemProperty 'pactBrokerToken', pactBrokerToken
+}

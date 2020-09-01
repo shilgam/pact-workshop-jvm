@@ -51,6 +51,10 @@
 
         $ PACT_BROKER_TOKEN=<YOUR TOKEN> ./gradlew consumer:pactPublish
 
+1. Verify the Dropwizard provider using a JUnit test
+
+        $ PACT_BROKER_TOKEN=<YOUR TOKEN> ./gradlew :providers:dropwizard-provider:test
+
 ## Description
 
 This workshop is setup with a number of steps that can be run through. Each step is in a branch, so to run through a
