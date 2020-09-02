@@ -47,22 +47,15 @@ pact {
       terminateProviderTask = stopProvider
       stateChangeUrl = url('http://localhost:8080/pactStateChange')
 
-      //if (project.hasProperty('pactBrokerUser') && pactBrokerUser != '<YOUR USER>') {
-      //  hasPactsFromPactBroker("https://test.pact.dius.com.au", authentication: ['Basic', pactBrokerUser, pactBrokerPassword])
-      //}
+      if (project.hasProperty('pactBrokerUrl')) {
+        println('Getting pact file(s) from Pact Broker...')
+        def pactBrokerToken = (project.pactBrokerToken == '<YOUR TOKEN>') ? System.getenv('PACT_BROKER_TOKEN') : project.pactBrokerToken
 
-      hasPactsWith('Our Little Consumer') {
-        /** Will define a consumer for each pact file in the directory.
-         * Consumer name is read from contents of pact file
-         */
-        pactFileLocation = file("$buildDir/pacts")
+        hasPactsFromPactBroker(
+          project.pactBrokerUrl,
+          authentication: ['Bearer', pactBrokerToken]
+        )
       }
     }
   }
-
-//  broker {
-//    pactBrokerUrl = 'https://test.pact.dius.com.au'
-//    pactBrokerUsername = project.pactBrokerUser
-//    pactBrokerPassword = project.pactBrokerPassword
-//  }
 }
