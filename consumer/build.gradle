@@ -22,5 +22,6 @@ pact {
     pactBrokerUrl = project.pactBrokerUrl
     pactBrokerToken = (project.pactBrokerToken == '<YOUR TOKEN>') ? System.getenv('PACT_BROKER_TOKEN') : project.pactBrokerToken
     providerVersion = { System.getenv('TRAVIS_COMMIT') } // consumer version
+    tags = [ System.getenv('TRAVIS_BRANCH') ]
   }
 }
