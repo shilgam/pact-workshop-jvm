@@ -30,6 +30,8 @@ test {
   systemProperty 'pactBrokerHost', pactBrokerHost
   def pactBrokerToken = (project.pactBrokerToken == '<YOUR TOKEN>') ? System.getenv('PACT_BROKER_TOKEN') : project.pactBrokerToken
   systemProperty 'pactBrokerToken', pactBrokerToken
-  systemProperty 'pact.provider.version', project['provider.version']
+  systemProperty 'pact.provider.version', "dropwiz-" + System.getenv('TRAVIS_COMMIT')
+  systemProperty 'pact.provider.tag', System.getenv('TRAVIS_BRANCH')
+
   systemProperty 'pact.verifier.publishResults', project['pact.verifier.publishResults']
 }

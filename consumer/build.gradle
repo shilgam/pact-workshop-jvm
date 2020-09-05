@@ -5,7 +5,7 @@ plugins {
 apply plugin: 'application'
 
 mainClassName = 'au.com.dius.pactworkshop.consumer.Consumer'
-version = '2'
+version = '0.0.1'
 
 dependencies {
   compile 'com.mashape.unirest:unirest-java:1.4.9'
@@ -21,5 +21,7 @@ pact {
   publish {
     pactBrokerUrl = project.pactBrokerUrl
     pactBrokerToken = (project.pactBrokerToken == '<YOUR TOKEN>') ? System.getenv('PACT_BROKER_TOKEN') : project.pactBrokerToken
+    providerVersion = { System.getenv('TRAVIS_COMMIT') } // consumer version
+    tags = [ System.getenv('TRAVIS_BRANCH') ]
   }
 }
