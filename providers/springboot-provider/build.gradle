@@ -46,7 +46,7 @@ pact {
       startProviderTask = startProvider
       terminateProviderTask = stopProvider
       stateChangeUrl = url('http://localhost:8080/pactStateChange')
-      providerVersion = { project['provider.version'] }
+      providerVersion = { "sprng-" + System.getenv('TRAVIS_COMMIT') }
 
       if (project.hasProperty('pactBrokerUrl')) {
         println('Getting pact file(s) from Pact Broker...')
