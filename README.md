@@ -17,6 +17,8 @@
 
           $ PACT_BROKER_TOKEN=<YOUR TOKEN> ./gradlew :providers:springboot-provider:bootRun
 
+      Check that provider app successfully started: http://localhost:8080/provider.json?validDate=2020-09-24T10:48:02.760 . App should respond with `{test: "NO", count: 1000,validDate: "2020-09-24T10:48:43+0300"}`.
+
 1. Run the consumer in another terminal session
 
         $ PACT_BROKER_TOKEN=<YOUR TOKEN> ./gradlew :consumer:run
